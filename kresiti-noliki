@@ -1,0 +1,62 @@
+pole = [[" "] * 3 for i in range(3)]
+
+def check():
+    print(f"  0 1 2")
+    for i in range(3):
+        print(f"{i} {pole[i][0]} {pole[i][1]} {pole[i][2]}")
+
+def hod():
+    while True:
+        x, y = map(int, input("-------- Ходите:  ").split())
+        if 0 <= x <= 2 and 0 <= y <= 2:
+            if pole[x][y] == " ":
+                return x, y
+            else:
+                print("Эта клетка уже занята.")
+        else:
+            print("Неверные координаты.")
+
+
+def win():
+    win_cords = (((0, 0), (0, 1), (0, 2)), ((1, 0), (1, 1), (1, 2)), ((2, 0), (2, 1), (2, 2)),
+                 ((0, 0), (1, 0), (2, 0)), ((0, 1), (1, 1), (2, 1)), ((0, 2), (1, 2), (2, 2)),
+                 ((2, 0), (1, 1), (0, 2)), ((0, 0), (1, 1), (2, 2)))
+    for cord in win_cords:
+        a = cord[0]
+        b = cord[1]
+        c = cord[2]
+
+        if pole[a[0]][a[1]] == pole[b[0]][b[1]] == pole[c[0]][c[1]] != " ":
+            print(f"Выиграл: {pole[a[0]][a[1]]}!")
+            return True
+    return False
+
+win()
+
+num = 0
+while True:
+    num += 1
+
+    check()
+
+    if num % 2 == 1:
+        print(" Ходит крестик ")
+    else:
+        print(" Ходит нолик ")
+
+
+    x, y = hod()
+
+    if num % 2 == 1:
+        pole[x][y] = "X"
+    else:
+        pole[x][y] = "0"
+
+    if win():
+        break
+
+    if num == 9:
+        print("Ничья!")
+        break
+
+
